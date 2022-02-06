@@ -5,7 +5,7 @@ pipeline {
       steps {
         echo 'Building..'
         withAnt(installation: 'Ant') {
-          ant create_run_jar'
+          ant create_run_jar
         }
       }
     }
