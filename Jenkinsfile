@@ -4,7 +4,8 @@ pipeline {
     stage('Build') {
       steps {
         echo 'Building..'
-        echo "ANT_HOME ${ANT_HOME}"
+        echo "JAVA_HOME = %JAVA_HOME%"
+        echo "ANT_HOME = %ANT_HOME%"
         //bat "%ANT_HOME%/bin/ant.bat create_run_jar"
       }
     }
