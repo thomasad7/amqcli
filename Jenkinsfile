@@ -4,6 +4,7 @@ pipeline {
     stage('Build') {
       steps {
         echo 'Building..'
+        sh 'ant create_run_jar'
       }
     }
     stage('Test') {
