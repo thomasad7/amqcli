@@ -4,7 +4,8 @@ pipeline {
     stage('Build') {
       steps {
         echo 'Building..'
-        bat '$ANT_HOME/bin/ant create_run_jar'
+        echo '${env.ANT_HOME}'
+        bat '${env.ANT_HOME}\bin\ant create_run_jar'
       }
     }
     stage('Test') {
