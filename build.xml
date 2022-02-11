@@ -1,24 +1,38 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project default="create_run_jar" name="Create Runnable Jar for Project amqcli">
-    <!--this file was created by Eclipse Runnable JAR Export Wizard-->
-    <!--ANT 1.7 is required                                        -->
-    <!--define folder properties-->
-    <property name="dir.buildfile" value="."/>
-    <property name="dir.workspace" value="C:/LOCAL/eclipse/workspace"/>
-    <property name="dir.jarfile" value="${dir.buildfile}"/>
-    <target name="create_run_jar">
-        <jar destfile="${dir.jarfile}/amqcli.jar" filesetmanifest="mergewithoutmain">
+<project name="amqcli" basedir="." default="all">
+    
+    <property name="dir.src"     value="src"/>
+    <property name="dir.lib"     value="lib"/>
+    <property name="dir.build"   value="build"/>
+    <property name="dir.jar"     value="."/>
+    <path id="classpath">
+        <fileset dir="${dir.lib}" includes="**/*.jar"/>
+    </path>
+    
+    <target name="clean">
+        <delete dir="${dir.build}"/>
+    </target>
+
+    <target name="build">
+        <mkdir dir="${dir.build}"/>
+        <javac srcdir="${dir.src}" destdir="${dir.build}" classpathref="classpath"/>
+    </target>
+
+    <target name="jar" depends="build">
+        <jar destfile="${dir.jar}/${ant.project.name}.jar" filesetmanifest="mergewithoutmain">
             <manifest>
                 <attribute name="Main-Class" value="Dummy"/>
                 <attribute name="Class-Path" value="."/>
             </manifest>
-            <fileset dir="${dir.jarfile}/bin"/>
-            <zipfileset excludes="META-INF/*.SF" src="${dir.jarfile}/lib/activemq-broker-5.16.3.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="${dir.jarfile}/lib/activemq-client-5.16.3.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="${dir.jarfile}/lib/geronimo-j2ee-management_1.1_spec-1.0.1.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="${dir.jarfile}/lib/hawtbuf-1.11.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="${dir.jarfile}/lib/javax.jms-api-2.0.1.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="${dir.jarfile}/lib/slf4j-api-1.7.31.jar"/>
+            <fileset dir="${dir.build}"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.lib}/activemq-broker-5.16.3.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.lib}/activemq-client-5.16.3.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.lib}/geronimo-j2ee-management_1.1_spec-1.0.1.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.lib}/hawtbuf-1.11.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.lib}/javax.jms-api-2.0.1.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.lib}/slf4j-api-1.7.31.jar"/>
         </jar>
     </target>
+
+    <target name="all" depends="clean,jar"/>
+
 </project>
